@@ -1,0 +1,9 @@
+{
+  "name": "dclatebus-build",
+  "version": "0.0.1",
+  "description": "build scripts for dc-latebusbuild",
+  "main": "index.js",
+  "repository": "https://github.com/maxgrossman/dclatebus-build.git",
+  "author": "maxgrossman <m.grossman1813@gmail.com>",
+  "license": "MIT"
+}
