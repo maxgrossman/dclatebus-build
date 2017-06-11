@@ -5,5 +5,21 @@
   "main": "index.js",
   "repository": "https://github.com/maxgrossman/dclatebus-build.git",
   "author": "maxgrossman <m.grossman1813@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "g": "^2.0.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "turf": "^3.0.14"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
 }
