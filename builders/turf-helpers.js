@@ -22,9 +22,7 @@ module.exports = {
             ),
         turf.multiPoint(
               routeJSONdirs[k].Stops.map((point) => {
-                routeJSONdirs[k].Stops.map((point) => {
-                  return [point.Lat, point.Lon];
-                });
+                return [point.Lat, point.Lon];
               })
             )
       ], {
@@ -34,6 +32,5 @@ module.exports = {
       });
     });
     return routeObj;
-  },
-  makeStopFeatureCollection: function () {}
+  }
 };
