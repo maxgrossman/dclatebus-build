@@ -1,4 +1,3 @@
-var Promise = require('bluebird');
 var rp = require('request-promise');
 var key = require('../credentials.js').apiKey;
 

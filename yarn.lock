@@ -1057,6 +1057,14 @@ progress@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
 
+promise-ratelimit@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/promise-ratelimit/-/promise-ratelimit-0.0.3.tgz#1512022734e98579905af17f76f33dd5cdcad175"
+
+promise-throttle@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/promise-throttle/-/promise-throttle-0.3.1.tgz#7483b8ac95712d02acde458a24362929e8258ccd"
+
 punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
