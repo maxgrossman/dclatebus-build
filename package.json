@@ -11,6 +11,7 @@
     "eslint-config-semistandard": "^11.0.0",
     "eslint-config-standard": "^10.2.1",
     "g": "^2.0.1",
+    "lodash": "^4.17.4",
     "promise-ratelimit": "^0.0.3",
     "promise-throttle": "^0.3.1",
     "request": "^2.81.0",
