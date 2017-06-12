@@ -1,11 +1,14 @@
 var turf = require('turf');
-var _ = require('lodash');
 var Promise = require('bluebird');
 
 module.exports = {
   /* For each bus stop pair:
-   *  1. slice route points from the point closets to the 1st bus stop
-   *     to the point closest to the 2nd bus stop
+   *  1. Buffer each stop in bus stop pair
+   *  2. Attempt to select routePnts with those buffers
+   *  3. If attempt not successful, retry until successful
+   *  4. Reduce each stop's selected point to be just the closets point
+   *  5. Subset routePnts to make bus segment.
+   *  6. Return bus segment
    */
   makeSegments: function (routeObj, routeID, buffDist) {
     return Promise.map(routeObj[routeID], (fc) => {
@@ -35,8 +38,6 @@ module.exports = {
             return selStopPnts;
           });
           return selRoutePnts;
-          // next do within
-          // then do distance, selecting closest
         }
       })
       .then((allSelRoutePnts) => {
