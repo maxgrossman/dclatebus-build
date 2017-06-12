@@ -15,14 +15,14 @@ module.exports = {
     let routeObj = {};
     routeObj[routeID] = Object.keys(routeJSONdirs).map((k, v) => {
       return turf.geometryCollection([
-        turf.multiPoint(
+        turf.featureCollection(
               routeJSONdirs[k].Shape.map((point) => {
-                return [point.Lat, point.Lon];
+                return turf.point([point.Lat, point.Lon]);
               })
             ),
-        turf.multiPoint(
+        turf.featureCollection(
               routeJSONdirs[k].Stops.map((point) => {
-                return [point.Lat, point.Lon];
+                return turf.point([point.Lat, point.Lon]);
               })
             )
       ], {

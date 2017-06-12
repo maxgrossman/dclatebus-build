@@ -21,7 +21,7 @@ module.exports = function (routeIds) {
     .then((route) => {
       let parsedRoute = JSON.parse(route);
       let routeObj = makeRouteObj(parsedRoute);
-      return makeSegments(routeObj, parsedRoute.RouteID);
+      return makeSegments(routeObj, parsedRoute.RouteID, 50);
     })
     .catch((error) => {
       console.log(error);

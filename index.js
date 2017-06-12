@@ -3,6 +3,6 @@ var makeRoutes = require('./builders/route-maker.js');
 
 routeIds.then((ids) => {
   makeRoutes(ids).then((routes) => {
-    console.log(routes);
+    // console.log(routes);
   });
 });
