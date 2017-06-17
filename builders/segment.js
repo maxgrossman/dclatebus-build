@@ -22,11 +22,9 @@ module.exports = {
             busPnts[nextKey]
           ];
           const selRoutePnts = stops.map((stop) => {
-            let buffedStop = turf.featureCollection(
-              turf.buffer(stop, buffDist, 'meters')
-            );
-            let selStopPnts = turf.within(routePnts, buffedStop);
+            let selStopPnts = turf.nearest(stop, routePnts);
             // while (selStopPnts.features.length < 1) {
+            console.log(selStopPnts);
             //   buffDist += 10;
             //   console.log(buffDist);
             //   buffedStop = turf.featureCollection(
@@ -34,10 +32,9 @@ module.exports = {
             //   );
             //   selStopPnts = turf.within(routePnts, buffedStop);
             // }
-            console.log(selStopPnts);
-            return selStopPnts;
+            // return selStopPnts;
           });
-          return selRoutePnts;
+          // return selRoutePnts;
         }
       })
       .then((allSelRoutePnts) => {

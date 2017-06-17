@@ -7,7 +7,6 @@ module.exports = {
     // null props occur when route directions does not exist
     let routeJSONdirs = _.omit(routeJSON, ['RouteID', 'Name']);
     routeJSONdirs = _.omitBy(routeJSONdirs, _.isNull);
-
     // return object for route w/one k,v pair...
     // routeID: geometryCollection
     // this geometryCollection has routes & stops for all possible directions
@@ -17,7 +16,11 @@ module.exports = {
       return turf.geometryCollection([
         turf.featureCollection(
               routeJSONdirs[k].Shape.map((point) => {
-                return turf.point([point.Lat, point.Lon]);
+                const index = routeJSONdirs[k].Shape.indexOf(point);
+                return turf.point(
+                  [point.Lat, point.Lon],
+                  {'index': index}
+                );
               })
             ),
         turf.featureCollection(
