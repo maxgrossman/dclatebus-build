@@ -1,5 +1,9 @@
+'use strict';
+
 var turf = require('turf');
 var Promise = require('bluebird');
+var addPoints = require('./turf-helpers').addPoints;
+var _ = require('lodash');
 
 module.exports = {
   /* For each bus stop pair:
@@ -12,37 +16,41 @@ module.exports = {
    */
   makeSegments: function (routeObj, routeID, buffDist) {
     return Promise.map(routeObj[routeID], (fc) => {
-      var routePnts = fc.geometry.geometries[0];
-      var busPnts = fc.geometry.geometries[1].features;
-      Promise.map(Object.keys(busPnts), (key, val) => {
+      const routePnts = addPoints(fc.geometry.geometries[0]);
+      const routePntsFC = turf.featureCollection(routePnts);
+      let busPnts = fc.geometry.geometries[1].features;
+      return Promise.map(Object.keys(busPnts), (key, ix) => {
         const nextKey = (parseInt(key) + 1).toString();
+        let segRoutePntsIndex;
         if (busPnts[nextKey]) {
           let stops = [
             busPnts[key],
             busPnts[nextKey]
           ];
-          const selRoutePnts = stops.map((stop) => {
-            let selStopPnts = turf.nearest(stop, routePnts);
-            // while (selStopPnts.features.length < 1) {
-            console.log(selStopPnts);
-            //   buffDist += 10;
-            //   console.log(buffDist);
-            //   buffedStop = turf.featureCollection(
-            //     turf.buffer(stop, buffDist, 'meters')
-            //   );
-            //   selStopPnts = turf.within(routePnts, buffedStop);
-            // }
-            // return selStopPnts;
+          segRoutePntsIndex = stops.map((stop) => {
+            const nearestPnt = turf.nearest(stop, routePntsFC);
+            return routePnts.indexOf(nearestPnt);
           });
-          // return selRoutePnts;
+        }
+        if (segRoutePntsIndex) {
+          let segPnts;
+          const segObj = {};
+          segPnts = routePnts.slice(
+            segRoutePntsIndex[0],
+            segRoutePntsIndex[1]
+          ).map((pnt) => { return pnt.geometry.coordinates; });
+          segObj[ix] = segPnts;
+          return segObj;
         }
       })
-      .then((allSelRoutePnts) => {
-        return allSelRoutePnts;
+      .then((segObjs) => {
+        return _.difference(segObjs, [ undefined ]);
       });
     })
-    .then((geom) => {
-      return geom;
+    .then((routeSegs) => {
+      const route = {};
+      route[routeID] = routeSegs[0];
+      return route;
     });
   }
 };

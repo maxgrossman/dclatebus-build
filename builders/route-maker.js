@@ -1,3 +1,5 @@
+'use strict';
+
 var key = require('../credentials.js').apiKey;
 var rp = require('request-promise');
 var Promise = require('bluebird');
@@ -21,7 +23,8 @@ module.exports = function (routeIds) {
     .then((route) => {
       let parsedRoute = JSON.parse(route);
       let routeObj = makeRouteObj(parsedRoute);
-      return makeSegments(routeObj, parsedRoute.RouteID, 20);
+      return makeSegments(routeObj, parsedRoute.RouteID, 20)
+      .then((segs) => { return segs; });
     })
     .catch((error) => {
       console.log(error);

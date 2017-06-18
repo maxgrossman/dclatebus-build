@@ -1,8 +1,11 @@
+'use strict';
+
 var turf = require('turf');
 var _ = require('lodash');
+Promise = require('bluebird');
 
 module.exports = {
-  makeRouteObj: function (routeJSON) {
+  makeRouteObj: (routeJSON) => {
     // remove non-geom properties and keys w/null props
     // null props occur when route directions does not exist
     let routeJSONdirs = _.omit(routeJSON, ['RouteID', 'Name']);
@@ -16,11 +19,7 @@ module.exports = {
       return turf.geometryCollection([
         turf.featureCollection(
               routeJSONdirs[k].Shape.map((point) => {
-                const index = routeJSONdirs[k].Shape.indexOf(point);
-                return turf.point(
-                  [point.Lat, point.Lon],
-                  {'index': index}
-                );
+                return turf.point([point.Lat, point.Lon]);
               })
             ),
         turf.featureCollection(
@@ -35,5 +34,22 @@ module.exports = {
       });
     });
     return routeObj;
+  },
+  addPoints: (routePnts) => {
+    const moreRoutePnts = routePnts.features.map(
+      (feature, index) => {
+        const nextIndex = index + 1;
+        let morePnts = [];
+        if (routePnts.features[nextIndex]) {
+          const firstPnt = routePnts.features[index];
+          const secondPnt = routePnts.features[nextIndex];
+          const midPnt = turf.midpoint(firstPnt, secondPnt);
+          morePnts = morePnts.concat([firstPnt, midPnt, secondPnt]);
+        }
+        return morePnts;
+      }
+    );
+    let flatMoreRoutePnts = _.flatten(moreRoutePnts);
+    return flatMoreRoutePnts;
   }
 };
