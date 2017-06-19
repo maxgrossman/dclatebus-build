@@ -19,12 +19,12 @@ module.exports = {
       return turf.geometryCollection([
         turf.featureCollection(
               routeJSONdirs[k].Shape.map((point) => {
-                return turf.point([point.Lat, point.Lon]);
+                return turf.point([point.Lon, point.Lat]);
               })
             ),
         turf.featureCollection(
               routeJSONdirs[k].Stops.map((point) => {
-                return turf.point([point.Lat, point.Lon]);
+                return turf.point([point.Lon, point.Lat]);
               })
             )
       ], {
@@ -36,20 +36,20 @@ module.exports = {
     return routeObj;
   },
   addPoints: (routePnts) => {
-    const moreRoutePnts = routePnts.features.map(
-      (feature, index) => {
-        const nextIndex = index + 1;
-        let morePnts = [];
-        if (routePnts.features[nextIndex]) {
-          const firstPnt = routePnts.features[index];
-          const secondPnt = routePnts.features[nextIndex];
-          const midPnt = turf.midpoint(firstPnt, secondPnt);
-          morePnts = morePnts.concat([firstPnt, midPnt, secondPnt]);
-        }
-        return morePnts;
+    let moreRoutePnts;
+    moreRoutePnts = routePnts.features.map(
+    (feature, index) => {
+      const nextIndex = index + 1;
+      let morePnts = [];
+      if (routePnts.features[nextIndex]) {
+        const firstPnt = routePnts.features[index];
+        const secondPnt = routePnts.features[nextIndex];
+        const midPnt = turf.midpoint(firstPnt, secondPnt);
+        morePnts = morePnts.concat([firstPnt, midPnt, secondPnt]);
       }
-    );
-    let flatMoreRoutePnts = _.flatten(moreRoutePnts);
-    return flatMoreRoutePnts;
+      return morePnts;
+    });
+    moreRoutePnts = _.flatten(moreRoutePnts);
+    return moreRoutePnts;
   }
 };

@@ -7,6 +7,20 @@ var fs = require('fs');
 
 routeIds.then((ids) => {
   makeRoutes(ids).then((routes) => {
-    // stuff
+    return routes[0].map((route, ix) => {
+      return turf.featureCollection(
+        route.map((seg) => {
+          return turf.lineString(seg[Object.keys(seg)]);
+        })
+      );
+    });
+  })
+  .then((geomRoutes) => {
+    geomRoutes.forEach((fc, ix) => {
+      fs.writeFileSync(
+        'test_data/10A_' + ix + '.geojson',
+        JSON.stringify(fc)
+      );
+    });
   });
 });

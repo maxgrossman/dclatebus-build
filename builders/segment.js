@@ -16,7 +16,14 @@ module.exports = {
    */
   makeSegments: function (routeObj, routeID, buffDist) {
     return Promise.map(routeObj[routeID], (fc) => {
-      const routePnts = addPoints(fc.geometry.geometries[0]);
+      let routePnts = fc.geometry.geometries[0];
+      routePnts = addPoints(routePnts);
+      routePnts = addPoints(turf.featureCollection(routePnts));
+      routePnts = addPoints(turf.featureCollection(routePnts));
+      routePnts = addPoints(turf.featureCollection(routePnts));
+      routePnts = addPoints(turf.featureCollection(routePnts));
+      routePnts = addPoints(turf.featureCollection(routePnts));
+      routePnts = addPoints(turf.featureCollection(routePnts));
       const routePntsFC = turf.featureCollection(routePnts);
       let busPnts = fc.geometry.geometries[1].features;
       return Promise.map(Object.keys(busPnts), (key, ix) => {
@@ -48,9 +55,7 @@ module.exports = {
       });
     })
     .then((routeSegs) => {
-      const route = {};
-      route[routeID] = routeSegs[0];
-      return route;
+      return routeSegs;
     });
   }
 };
