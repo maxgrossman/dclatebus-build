@@ -35,21 +35,27 @@ module.exports = {
     });
     return routeObj;
   },
-  addPoints: (routePnts) => {
-    let moreRoutePnts;
-    moreRoutePnts = routePnts.features.map(
-    (feature, index) => {
-      const nextIndex = index + 1;
+  addPoints: (routePnts, loops) => {
+    let moreRoutePnts = routePnts;
+    for (var i = 0; i < loops; i++) {
       let morePnts = [];
-      if (routePnts.features[nextIndex]) {
-        const firstPnt = routePnts.features[index];
-        const secondPnt = routePnts.features[nextIndex];
-        const midPnt = turf.midpoint(firstPnt, secondPnt);
-        morePnts = morePnts.concat([firstPnt, midPnt, secondPnt]);
+      moreRoutePnts = moreRoutePnts.features.map(
+      (feature, index) => {
+        const nextIndex = index + 1;
+        if (moreRoutePnts.features[nextIndex]) {
+          const firstPnt = moreRoutePnts.features[index];
+          const secondPnt = moreRoutePnts.features[nextIndex];
+          const midPnt = turf.midpoint(firstPnt, secondPnt);
+          morePnts = morePnts.concat([firstPnt, midPnt, secondPnt]);
+        }
+        return morePnts;
+      });
+      moreRoutePnts = _.flatten(morePnts);
+      console.log(moreRoutePnts.length);
+      if (i !== loops) {
+        moreRoutePnts = turf.featureCollection(moreRoutePnts);
       }
-      return morePnts;
-    });
-    moreRoutePnts = _.flatten(moreRoutePnts);
+    }
     return moreRoutePnts;
   }
 };

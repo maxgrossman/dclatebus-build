@@ -7,6 +7,7 @@
   "author": "maxgrossman <m.grossman1813@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@turf/line-split": "^4.4.0",
     "bluebird": "^3.5.0",
     "eslint-config-semistandard": "^11.0.0",
     "eslint-config-standard": "^10.2.1",

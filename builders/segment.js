@@ -17,14 +17,7 @@ module.exports = {
   makeSegments: function (routeObj, routeID, buffDist) {
     return Promise.map(routeObj[routeID], (fc) => {
       let routePnts = fc.geometry.geometries[0];
-      routePnts = addPoints(routePnts);
-      routePnts = addPoints(turf.featureCollection(routePnts));
-      routePnts = addPoints(turf.featureCollection(routePnts));
-      routePnts = addPoints(turf.featureCollection(routePnts));
-      routePnts = addPoints(turf.featureCollection(routePnts));
-      routePnts = addPoints(turf.featureCollection(routePnts));
-      routePnts = addPoints(turf.featureCollection(routePnts));
-      const routePntsFC = turf.featureCollection(routePnts);
+      const routePntsFC = addPoints(routePnts, 5);
       let busPnts = fc.geometry.geometries[1].features;
       return Promise.map(Object.keys(busPnts), (key, ix) => {
         const nextKey = (parseInt(key) + 1).toString();
@@ -36,16 +29,18 @@ module.exports = {
           ];
           segRoutePntsIndex = stops.map((stop) => {
             const nearestPnt = turf.nearest(stop, routePntsFC);
-            return routePnts.indexOf(nearestPnt);
+            return routePntsFC.features.indexOf(nearestPnt);
           });
         }
         if (segRoutePntsIndex) {
           let segPnts;
           const segObj = {};
-          segPnts = routePnts.slice(
+          segPnts = routePntsFC.features.slice(
             segRoutePntsIndex[0],
             segRoutePntsIndex[1]
-          ).map((pnt) => { return pnt.geometry.coordinates; });
+          ).map((pnt) => {
+            return pnt.geometry.coordinates;
+          });
           segObj[ix] = segPnts;
           return segObj;
         }
