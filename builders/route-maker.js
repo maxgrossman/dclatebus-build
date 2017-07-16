@@ -13,7 +13,7 @@ var makeSegments = require('./segment').makeSegments;
  *  3. then return feature collection
  */
 
-module.exports = function (routeIds) {
+module.exports = (routeIds) => {
   return Promise.map(routeIds.slice(0, 1), (id) => {
     return throttle().then(
     () => {
@@ -23,8 +23,12 @@ module.exports = function (routeIds) {
     .then((route) => {
       let parsedRoute = JSON.parse(route);
       let routeObj = makeRouteObj(parsedRoute);
-      return makeSegments(routeObj, parsedRoute.RouteID, 20)
-      .then((segs) => { return segs; });
+      return makeSegments(
+        routeObj,
+        parsedRoute.RouteID
+      ).then((segs) => {
+        return segs;
+      });
     })
     .catch((error) => {
       console.log(error);

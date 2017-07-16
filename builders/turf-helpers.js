@@ -1,8 +1,7 @@
 'use strict';
 
-var turf = require('turf');
-var _ = require('lodash');
-Promise = require('bluebird');
+import turf from 'turf';
+import _ from 'lodash';
 
 module.exports = {
   makeRouteObj: (routeJSON) => {
@@ -34,28 +33,28 @@ module.exports = {
       });
     });
     return routeObj;
-  },
-  addPoints: (routePnts, loops) => {
-    let moreRoutePnts = routePnts;
-    for (var i = 0; i < loops; i++) {
-      let morePnts = [];
-      moreRoutePnts = moreRoutePnts.features.map(
-      (feature, index) => {
-        const nextIndex = index + 1;
-        if (moreRoutePnts.features[nextIndex]) {
-          const firstPnt = moreRoutePnts.features[index];
-          const secondPnt = moreRoutePnts.features[nextIndex];
-          const midPnt = turf.midpoint(firstPnt, secondPnt);
-          morePnts = morePnts.concat([firstPnt, midPnt, secondPnt]);
-        }
-        return morePnts;
-      });
-      moreRoutePnts = _.flatten(morePnts);
-      console.log(moreRoutePnts.length);
-      if (i !== loops) {
-        moreRoutePnts = turf.featureCollection(moreRoutePnts);
-      }
-    }
-    return moreRoutePnts;
   }
+  // addPoints: (routePnts, loops) => {
+  //   let moreRoutePnts = routePnts;
+  //   for (var i = 0; i < loops; i++) {
+  //     let morePnts = [];
+  //     moreRoutePnts = moreRoutePnts.features.map(
+  //     (feature, index) => {
+  //       const nextIndex = index + 1;
+  //       if (moreRoutePnts.features[nextIndex]) {
+  //         const firstPnt = moreRoutePnts.features[index];
+  //         const secondPnt = moreRoutePnts.features[nextIndex];
+  //         const midPnt = turf.midpoint(firstPnt, secondPnt);
+  //         morePnts = morePnts.concat([firstPnt, midPnt, secondPnt]);
+  //       }
+  //       return morePnts;
+  //     });
+  //     moreRoutePnts = _.flatten(morePnts);
+  //     console.log(moreRoutePnts.length);
+  //     if (i !== loops) {
+  //       moreRoutePnts = turf.featureCollection(moreRoutePnts);
+  //     }
+  //   }
+  //   return moreRoutePnts;
+  // }
 };

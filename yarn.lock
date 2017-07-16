@@ -20,12 +20,26 @@
   dependencies:
     "@turf/invariant" "^4.4.0"
 
+"@turf/circle@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@turf/circle/-/circle-4.5.2.tgz#d5bd1b18162b93edbb74a127708818487387f42c"
+  dependencies:
+    "@turf/destination" "^4.5.2"
+    "@turf/helpers" "^4.5.2"
+
 "@turf/destination@^4.4.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@turf/destination/-/destination-4.4.0.tgz#22759e888f60d2fbd111b551be3a4d12e3fa46e8"
   dependencies:
     "@turf/helpers" "^4.4.0"
     "@turf/invariant" "^4.4.0"
+
+"@turf/destination@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@turf/destination/-/destination-4.5.2.tgz#ecbabf4b37d5c94dc5067ce3972d272d3c53556d"
+  dependencies:
+    "@turf/helpers" "^4.5.2"
+    "@turf/invariant" "^4.5.2"
 
 "@turf/distance@^4.4.0":
   version "4.4.0"
@@ -49,9 +63,25 @@
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-4.4.0.tgz#c83112f7fbe6ed183c7c0c2f776481b94d1cbd01"
 
+"@turf/helpers@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-4.5.2.tgz#6fc6772a7b301f277b49732925c354c7fb85d1df"
+
 "@turf/invariant@^4.4.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-4.4.0.tgz#aac0afb840ae40908f9c80393f416222dcf79c32"
+
+"@turf/invariant@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-4.5.2.tgz#0642ee1e6bca531be3f6f9292d590155f2fb9604"
+
+"@turf/line-arc@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@turf/line-arc/-/line-arc-4.5.2.tgz#5593f343305c6d8d6c1fc81ebe9b61b173c6738c"
+  dependencies:
+    "@turf/circle" "^4.5.2"
+    "@turf/destination" "^4.5.2"
+    "@turf/helpers" "^4.5.2"
 
 "@turf/line-intersect@^4.4.0":
   version "4.4.0"
@@ -92,6 +122,10 @@
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-4.4.0.tgz#4fa25d4cc0525bd4cdbaf4ff68a6f8ae81f1975f"
 
+"@turf/meta@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-4.5.2.tgz#8450fc442d2a59494251a5a52ae520017e2dcf0d"
+
 "@turf/point-on-line@^4.4.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@turf/point-on-line/-/point-on-line-4.4.0.tgz#81a71fb6a8b781e27b512c2a6be017a4ba647ff6"
@@ -101,6 +135,16 @@
     "@turf/distance" "^4.4.0"
     "@turf/helpers" "^4.4.0"
     "@turf/line-intersect" "^4.4.0"
+
+"@turf/sector@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@turf/sector/-/sector-4.5.2.tgz#7a31aa2851661ca058749bde79fb2d3ebf9e32da"
+  dependencies:
+    "@turf/circle" "^4.5.2"
+    "@turf/helpers" "^4.5.2"
+    "@turf/invariant" "^4.5.2"
+    "@turf/line-arc" "^4.5.2"
+    "@turf/meta" "^4.5.2"
 
 acorn-jsx@^3.0.0:
   version "3.0.1"

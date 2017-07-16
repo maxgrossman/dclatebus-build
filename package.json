@@ -6,8 +6,12 @@
   "repository": "https://github.com/maxgrossman/dclatebus-build.git",
   "author": "maxgrossman <m.grossman1813@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build-segments": "node index.js"
+  },
   "dependencies": {
     "@turf/line-split": "^4.4.0",
+    "@turf/sector": "^4.5.2",
     "bluebird": "^3.5.0",
     "eslint-config-semistandard": "^11.0.0",
     "eslint-config-standard": "^10.2.1",

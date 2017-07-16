@@ -1,25 +1,22 @@
 'use-strict';
 
-var routeIds = require('./builders/route-ids.js');
-var makeRoutes = require('./builders/route-maker.js');
-var turf = require('turf');
-var fs = require('fs');
+import routeIds from './builders/route-ids';
+import makeRoutes from './builders/route-maker';
+import turf from 'turf';
+import Promise from 'bluebird';
+import fs from 'fs';
 
 routeIds.then((ids) => {
   makeRoutes(ids).then((routes) => {
-    return routes[0].map((route, ix) => {
-      return turf.featureCollection(
-        route.map((seg) => {
-          return turf.lineString(seg[Object.keys(seg)]);
-        })
-      );
-    });
-  })
-  .then((geomRoutes) => {
-    geomRoutes.forEach((fc, ix) => {
+    return routes[0];
+  }).then((geomRoutes) => {
+    geomRoutes.forEach((features, ix) => {
+      const routeFC = turf.featureCollection(features);
+      console.log(routeFC);
+      const routeName = 'test_data/10A_' + ix + '.geojson';
       fs.writeFileSync(
-        'test_data/10A_' + ix + '.geojson',
-        JSON.stringify(fc)
+        routeName,
+        JSON.stringify(routeFC)
       );
     });
   });
